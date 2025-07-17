@@ -1,4 +1,4 @@
-# 🚀 WICS Fullstack Workshop Starter (Next.js + Firebase)
+# 🚀 WICS Fullstack Workshop (Next.js + Firebase)
 
 ## 🧰 Prerequisites
 
