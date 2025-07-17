@@ -33,7 +33,7 @@ export default function Chat({
   const userId = user?.uid;
   const { interviewId } = use(params);
   const [interviewData, setInterviewData] = useState<Interview>();
-  const [resumeData, setResumeData] = useState<Resume>();
+  const [, setResumeData] = useState<Resume>();
   const [systemPrompt, setSystemPrompt] = useState<string>("");
 
   useEffect(() => {
@@ -69,10 +69,10 @@ export default function Chat({
       },
     });
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (e?: React.SyntheticEvent) => {
+    e?.preventDefault();
     if (input.trim()) {
-      handleSubmit(e);
+      handleSubmit();
     }
   };
 
@@ -231,6 +231,7 @@ export default function Chat({
                   <Input
                     name="prompt"
                     value={input}
+                    type="text"
                     onChange={handleInputChange}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && !e.shiftKey) {
@@ -242,7 +243,9 @@ export default function Chat({
                     className="flex-1"
                     disabled={isLoading}
                   />
+
                   <Button
+                    type="submit"
                     onClick={onSubmit}
                     disabled={!input.trim() || isLoading}
                     className="shadow-medium"
