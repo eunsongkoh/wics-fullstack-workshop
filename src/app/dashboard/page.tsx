@@ -25,44 +25,63 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+/**
+ * Dashboard component that displays user interview preparation progress and allows
+ * users to manage their applications.
+ *
+ * @returns {JSX.Element} The rendered Dashboard component.
+ */
 export default function Dashboard() {
-  const { user } = useAuth();
-  const userId = user?.uid;
+  const { user } = useAuth(); // Get the authenticated user
+  const userId = user?.uid; // Extract user ID
 
+  // State variables for dialog visibility and interview data
   const [isResumeDialogOpen, setIsResumeDialogOpen] = useState(false);
   const [isInterviewDialogOpen, setIsInterviewDialogOpen] = useState(false);
   const [interviewData, setInterviewData] = useState<Interview[]>([]);
 
+  /**
+   * Fetch interview data when the component mounts or userId changes.
+   * If userId is not available, it exits early.
+   */
   useEffect(() => {
     const fetchData = async () => {
       if (!userId) {
-        return;
+        return; // Exit if userId is not available
       }
 
       try {
-        const data = await getInterviews(userId);
-        setInterviewData(data);
+        const data = await getInterviews(userId); // Fetch interviews
+        setInterviewData(data); // Update state with fetched data
       } catch (error) {
         console.error("Error fetching interview data:", error);
-        toast.error("Failed to load interview data.");
+        toast.error("Failed to load interview data."); // Show error toast
       }
     };
 
     fetchData();
   }, [userId]);
 
+  /**
+   * Handles the submission of the resume.
+   * Displays a success toast and closes the resume dialog.
+   */
   const handleResumeSubmit = () => {
     toast("Resume uploaded successfully!", {
       description: "Your resume has been processed and is ready for analysis.",
     });
-    setIsResumeDialogOpen(false);
+    setIsResumeDialogOpen(false); // Close the dialog
   };
 
+  /**
+   * Handles the submission of the interview.
+   * Displays a success toast and closes the interview dialog.
+   */
   const handleInterviewSubmit = () => {
     toast("Interview session started", {
       description: "Good luck with your practice interview!",
     });
-    setIsInterviewDialogOpen(false);
+    setIsInterviewDialogOpen(false); // Close the dialog
   };
 
   return (
@@ -80,6 +99,7 @@ export default function Dashboard() {
             </p>
           </div>
           <div className="flex gap-3 mt-4 lg:mt-0">
+            {/* Button to upload resume */}
             <Button
               variant="outline"
               size="sm"
@@ -88,6 +108,7 @@ export default function Dashboard() {
               <Upload className="mr-2 h-4 w-4" />
               Upload Resume
             </Button>
+            {/* Button to create a new interview */}
             <Button
               size="sm"
               className="shadow-medium"
@@ -109,7 +130,7 @@ export default function Dashboard() {
               <Briefcase className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{interviewData.length}</div>
+              <div className="text-2xl font-bold">{interviewData.length}</div> {/* Display total interviews */}
             </CardContent>
           </Card>
         </div>
@@ -128,6 +149,7 @@ export default function Dashboard() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
+                {/* Map through interview data to display applications */}
                 {interviewData.map((app, index) => (
                   <div
                     key={index}

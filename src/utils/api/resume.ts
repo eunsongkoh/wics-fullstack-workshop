@@ -3,6 +3,15 @@ import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase/firebaseConfig";
 import { Resume, ResumeExperience } from "@/models/resume";
 
+/**
+ * Updates the experience section of a user's resume in the database.
+ *
+ * @param userId - The ID of the user whose resume is being updated.
+ * @param resumeId - The ID of the resume to be updated.
+ * @param experience - An array of ResumeExperience objects representing the user's work experience.
+ * @returns A promise that resolves when the update is complete.
+ * @throws Will throw an error if the update fails.
+ */
 export async function updateResumeExperience(
   userId: string,
   resumeId: string,
@@ -17,6 +26,12 @@ export async function updateResumeExperience(
   }
 }
 
+/**
+ * Retrieves the resume details for a specific user.
+ *
+ * @param userId - The unique identifier of the user whose resume details are to be fetched.
+ * @returns A promise that resolves to a Resume object containing the user's resume details.
+ */
 export async function getResumeDetails(userId: string): Promise<Resume> {
   const resumeRef = collection(db, "users", userId, "resume");
   const snapshot = await getDocs(resumeRef);
@@ -39,6 +54,16 @@ export async function getResumeDetails(userId: string): Promise<Resume> {
   return resume;
 }
 
+/**
+ * Updates a specific section of a user's resume in the database.
+ *
+ * @param userId - The ID of the user whose resume is being updated.
+ * @param resumeId - The ID of the resume to update.
+ * @param section - The section of the resume to update. Can be "other", "projects", or "skills".
+ * @param content - The new content to set for the specified section.
+ * @returns A promise that resolves when the update is complete.
+ * @throws Will log an error if the update fails.
+ */
 export async function updateResumeSection(
   userId: string,
   resumeId: string,
