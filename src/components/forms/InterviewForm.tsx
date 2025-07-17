@@ -13,6 +13,16 @@ interface InterviewFormProps {
   userId?: string;
 }
 
+/**
+ * InterviewForm component for creating a new interview entry.
+ *
+ * @param {Object} props - The component props.
+ * @param {Function} props.onSubmit - Callback function to be called on successful form submission.
+ * @param {Function} props.onCancel - Callback function to be called when the cancel button is clicked.
+ * @param {string} props.userId - The ID of the user creating the interview.
+ *
+ * @returns {JSX.Element} The rendered InterviewForm component.
+ */
 export function InterviewForm({
   onSubmit,
   onCancel,
@@ -62,7 +72,7 @@ export function InterviewForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="jobDescription">Company</Label>
+        <Label htmlFor="">Company</Label>
         <Input
           id="company"
           placeholder="Paste the complete job description here..."

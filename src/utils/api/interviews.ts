@@ -24,6 +24,14 @@ export async function getInterviews(userId: string): Promise<Interview[]> {
   return interviewsData;
 }
 
+/**
+ * Retrieves an interview document by its ID for a specific user.
+ *
+ * @param userId - The ID of the user whose interview is being retrieved.
+ * @param interviewId - The ID of the interview to retrieve.
+ * @returns A promise that resolves to an Interview object if found.
+ * @throws Error if the interview does not exist.
+ */
 export async function getInterviewById(userId: string, interviewId: string) {
   const interviewDoc = doc(db, "users", userId, "interviews", interviewId);
   const interviewSnapshot = await getDoc(interviewDoc);

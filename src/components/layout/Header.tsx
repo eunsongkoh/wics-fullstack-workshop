@@ -14,6 +14,16 @@ import { usePathname } from "next/navigation";
 import GoogleButton from "../features/GoogleButton";
 import { useRouter } from "next/navigation";
 
+/**
+ * Header component that displays the navigation and user actions.
+ *
+ * This component includes:
+ * - A logo and title for the application.
+ * - Navigation links that change based on the user's authentication state and current page.
+ * - User actions including sign-in and sign-out functionality.
+ *
+ * @returns {JSX.Element} The rendered header component.
+ */
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
