@@ -33,7 +33,7 @@ export default function Chat({
   const userId = user?.uid;
   const { interviewId } = use(params);
   const [interviewData, setInterviewData] = useState<Interview>();
-  const [resumeData, setResumeData] = useState<Resume>();
+  const [, setResumeData] = useState<Resume>();
   const [systemPrompt, setSystemPrompt] = useState<string>("");
 
   useEffect(() => {
